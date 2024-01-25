@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewWeb</title>
+    <style>
+        .image{
+            height: 30rem;
+            width: 50rem;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <!-- <button></button> -->
+    <h1 style="background-color: lightblue;">Ansh The Dom</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque rem hic dolor aliquid quod aliquam, ratione voluptatem? Enim maxime et earum magni ratione dignissimos vel aspernatur, sequi molestiae! Corrupti, officiis.</p>
+    <p>hello</p>
+    <div class="image">
+        <img src="" alt="">
+    </div>
+</body>
+<script>
+    const element = document.createElement("button");
+    element.appendChild(document.createTextNode("Click Me!"))   
+    document.querySelector("body").appendChild(element);
+    
+    function showimg(ig,foll){
+        const imagediv = document.querySelector('.image');
+        const img = document.createElement('img');
+        img.src = `${ig}`;
+        imagediv.appendChild(img)
+        const followers = document.createTextNode(`followers : ${foll}`);
+        imagediv.appendChild(followers);
+    }
+    const url = 'https://api.github.com/users/hiteshchoudhary';
+        
+    element.addEventListener('click', ()=>{
+            const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        
+        xhr.onreadystatechange = function(){
+            console.log(xhr.readyState);
+
+            if(xhr.readyState === 4){
+                const response = JSON.parse(this.responseText);
+                const imageurl = response.avatar_url;
+                const foll = response.followers;
+                showimg(imageurl,foll);
+
+            }
+        }
+
+        xhr.send();
+
+    })
+    
+</script>
+</html>
